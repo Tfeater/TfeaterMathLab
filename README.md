@@ -45,7 +45,6 @@ Set up environment variables:
 
 ```bash
 export DJANGO_SECRET_KEY="your_dev_key"
-export GEMINI_API_KEY=""            # unused now, but reserved
 export CEREBRAS_API_KEY="your_cerebras_api_key"
 ```
 
