@@ -38,6 +38,9 @@ The Windows deployment packet is in the folder **`deploy/windows/`**:
 |------|--------|
 | **install.bat** | One-time setup: creates virtual environment, installs dependencies, runs migrations, collects static files. |
 | **run.bat** | Starts the Django development server. |
+| **launcher.py** | Python launcher (migrate + runserver + open browser). Can be run directly or packaged as .exe. |
+| **TfeaterMathLab.spec** | PyInstaller spec file to build a standalone Windows .exe. |
+| **BUILD_EXE.md** | How to build the .exe on Windows (requires PyInstaller). |
 | **set_env_local.bat.example** | Example file for environment variables. You copy it to `set_env_local.bat` and edit. |
 | **env_example.txt** | List and short description of all supported environment variables. |
 | **README.txt** | Short quick-start summary. |
@@ -207,7 +210,24 @@ If you prefer to run commands yourself:
 
 ---
 
-## 7. Production Notes
+## 7. Building a standalone .exe
+
+You can build a Windows executable so users can run TfeaterMathLab **without installing Python**. The result is a folder containing `TfeaterMathLab.exe` that you can zip and distribute.
+
+**Requirements:** Windows, Python 3.11+ with the project’s venv and dependencies installed, and PyInstaller (`pip install pyinstaller`).
+
+**Steps (from project root in Command Prompt):**
+
+1. Activate the virtual environment: `venv\Scripts\activate`
+2. Install PyInstaller: `pip install pyinstaller`
+3. Build: `pyinstaller deploy\windows\TfeaterMathLab.spec`
+4. Output: `dist\TfeaterMathLab\` contains `TfeaterMathLab.exe` and supporting files. Zip that folder to distribute.
+
+When users run the .exe, it will run migrations, start the server at http://127.0.0.1:8000/, and open the default browser. For Cerebras API key, they must set `CEREBRAS_API_KEY` (e.g. via a small .bat that sets it and runs the .exe). See **`deploy/windows/BUILD_EXE.md`** for details and one-file build options.
+
+---
+
+## 8. Production Notes
 
 The deployment packet and this manual are aimed at **local or single-machine deployment** on Windows. For production:
 
@@ -218,4 +238,4 @@ The deployment packet and this manual are aimed at **local or single-machine dep
 - Use HTTPS and secure cookie/session settings (Django’s defaults when `DEBUG=False` help with this).
 - Consider using a production database (e.g. PostgreSQL) instead of SQLite for multi-user or higher load.
 
-For more about the project and development setup, see the root **README.md**.
+For more about the project and development setup, see the root **README.md**. For building the Windows .exe, see **deploy/windows/BUILD_EXE.md**.
