@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculation History - TfeaterMathLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            startup: {
+                ready: function() {
+                    MathJax.startup.defaultReady();
+                    document.documentElement.classList.add('mathjax-ready');
+                }
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --primary: #4a4a4a;
+            --background: #fafafa;
+            --surface: #ffffff;
+            --border: #e0e0e0;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6a6a6a;
+            --text-muted: #9a9a9a;
+            --success: #10b981;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        [data-theme="dark"] {
+            --background: #1a1a1a;
+            --surface: #2a2a2a;
+            --border: #404040;
+            --text-primary: #f0f0f0;
+            --text-secondary: #c0c0c0;
+            --text-muted: #808080;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+        }
+
+        .nav-item:hover {
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--background);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--background);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .solver-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--background);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .history-item:hover {
+            background: var(--border);
+        }
+
+        .history-expression {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .history-result {
+            color: var(--success);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">TfeaterMathLab</a>
+            <nav class="nav-menu">
+                <a href="/" class="nav-item">Solve</a>
+                <a href="/history/" class="nav-item active">History</a>
+                <a href="/profile/" class="nav-item">Profile</a>
+            </nav>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="solver-card">
+            <div class="card-header">
+                <h2 class="card-title">Calculation History</h2>
+                <p class="card-subtitle">Your recent calculations and solutions</p>
+            </div>
+
+            <div id="historyList" style="margin-top: 24px;">
+                <p style="color: var(--text-muted); text-align: center; padding: 40px;">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>TfeaterMathLab - Advanced Mathematics Tool</p>
+    </footer>
+
+    <script>
+        function cleanLatexForDisplay(expr) {
+            if (!expr) return '';
+            var s = String(expr).trim();
+
+            // Remove common LaTeX delimiters so we can wrap consistently
+            s = s.replace(/\\\[/g, '').replace(/\\\]/g, '');
+            s = s.replace(/\$\$/g, '').replace(/\$/g, '');
+            s = s.replace(/\\\(/g, '').replace(/\\\)/g, '');
+            s = s.trim();
+
+            // If this looks like a plain Python-style matrix, convert to LaTeX bmatrix.
+            // Example: [[1,2],[3,4]] -> \begin{bmatrix}1 & 2 \\ 3 & 4\end{bmatrix}
+            if (/^\[\[.*\]\]$/.test(s)) {
+                try {
+                    // Unescape any JSON-style quotes first: [[\"1\",\"0\"],[\"0\",\"1\"]]
+                    s = s.replace(/\\"/g, '"');
+                    var inner = s.slice(2, -2); // strip outer [[ ]]
+                    var rowStrings = inner.split('],[');
+                    var rowLatex = rowStrings.map(function (row) {
+                        return row.split(',').map(function (cell) {
+                            // Remove quotes/backslashes and extra spaces inside each cell
+                            return cell.replace(/["\\]/g, '').trim();
+                        }).join(' & ');
+                    }).join(' \\\\ ');
+                    s = '\\begin{bmatrix} ' + rowLatex + ' \\end{bmatrix}';
+                } catch (e) {
+                    // If anything goes wrong, fall back to raw string.
+                }
+            }
+
+            return s;
+        }
+
+        async function loadHistory() {
+            try {
+                const response = await fetch('/api/history/');
+                const data = await response.json();
+                const container = document.getElementById('historyList');
+                
+                if (data.history && data.history.length > 0) {
+                    container.innerHTML = data.history.map(item => {
+                        const originalInput = item.original_input || item.expression || '';
+                        const exprLatex = cleanLatexForDisplay(item.expression || originalInput);
+                        const resultLatex = cleanLatexForDisplay(item.latex || item.result || '');
+                        const safeOriginal = String(originalInput).replace(/'/g, "\\'");
+                        return `
+                            <div class="history-item" onclick="loadExpression('${safeOriginal}')">
+                                <div class="history-expression">\\[${exprLatex}\\]</div>
+                                <div class="history-result">\\[${resultLatex}\\]</div>
+                            </div>
+                        `;
+                    }).join('');
+                    
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        MathJax.typesetPromise();
+                    }
+                } else {
+                    container.innerHTML = '<p style="text-align: center; padding: 40px; color: var(--text-muted);">No calculations yet</p>';
+                }
+            } catch (err) {
+                document.getElementById('historyList').innerHTML = '<p style="color: #ef4444; text-align: center;">Failed to load history</p>';
+            }
+        }
+
+        function loadExpression(expr) {
+            window.location.href = '/?expr=' + encodeURIComponent(expr);
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.hasAttribute('data-theme')) {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        loadHistory();
+    </script>
+</body>
+</html>

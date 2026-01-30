@@ -1,0 +1,416 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - TfeaterMathLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a4a4a;
+            --primary-hover: #3a3a3a;
+            --background: #fafafa;
+            --surface: #ffffff;
+            --border: #e0e0e0;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6a6a6a;
+            --text-muted: #9a9a9a;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        [data-theme="dark"] {
+            --primary: #f0f0f0;
+            --primary-hover: #ffffff;
+            --background: #1a1a1a;
+            --surface: #2a2a2a;
+            --border: #404040;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            background: var(--border);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 20px 40px;
+            display: grid;
+            grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+            gap: 24px;
+        }
+
+        .docs-sidebar {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            padding: 18px 18px 20px;
+            font-size: 13px;
+        }
+
+        .docs-sidebar-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .docs-sidebar-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .docs-sidebar-list li {
+            margin-bottom: 4px;
+        }
+
+        .docs-sidebar-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .docs-sidebar-list a:hover {
+            color: var(--text-primary);
+        }
+
+        .docs-main {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            padding: 28px;
+        }
+
+        .docs-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .docs-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+        }
+
+        .docs-section {
+            margin-top: 18px;
+            margin-bottom: 6px;
+        }
+
+        .docs-section-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .docs-section-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .docs-list {
+            margin-top: 6px;
+            padding-left: 18px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .docs-link-list {
+            margin-top: 14px;
+            font-size: 13px;
+        }
+
+        .docs-link-list a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .docs-link-list a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px 20px 32px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            margin-top: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">TfeaterMathLab</a>
+            <nav class="nav-menu">
+                <a href="/" class="nav-item">Solve</a>
+                <a href="/history/" class="nav-item">History</a>
+                <a href="/profile/" class="nav-item">Profile</a>
+                <a href="/about/" class="nav-item">About</a>
+                <a href="/documentation/" class="nav-item active">Documentation</a>
+            </nav>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <aside class="docs-sidebar">
+            <div class="docs-sidebar-title">On this page</div>
+            <ul class="docs-sidebar-list">
+                <li><a href="#getting-started">Getting started</a></li>
+                <li><a href="#tabs-operations">Tabs and operations</a></li>
+                <li><a href="#input-syntax">Input syntax</a></li>
+                <li><a href="#text-tab">Text tab and AI flow</a></li>
+                <li><a href="#graphs-pdf">Graphs and PDF exports</a></li>
+                <li><a href="#error-fallbacks">Error handling and fallbacks</a></li>
+                <li><a href="#developer-docs">Developer documentation index</a></li>
+            </ul>
+        </aside>
+
+        <section class="docs-main">
+            <h1 class="docs-title">Documentation</h1>
+            <p class="docs-subtitle">
+                This page is a practical guide to using TfeaterMathLab, from basic
+                input syntax to how the Text tab and AI explanations behave. All
+                of this is backed by a deterministic SymPy engine and a suite of
+                automated tests.
+            </p>
+
+            <div id="getting-started" class="docs-section">
+                <h2 class="docs-section-title">Getting started</h2>
+                <p class="docs-section-text">
+                    Open the main Solve page and choose a tab that matches the kind of
+                    problem you want to work on: equations, derivatives, integrals,
+                    limits, matrices, graphs, or word problems in the Text tab.
+                </p>
+                <ul class="docs-list">
+                    <li>Enter expressions using keyboard‑first syntax such as `2*x + 5 = 15` or `sin(x)/x`.</li>
+                    <li>Use the example chips below the input for quick templates.</li>
+                    <li>Press <strong>Calculate</strong> to send the request to the solver.</li>
+                </ul>
+            </div>
+
+            <div id="tabs-operations" class="docs-section">
+                <h2 class="docs-section-title">Tabs and operations</h2>
+                <p class="docs-section-text">
+                    Each tab is wired to a specific backend operation. The UI always shows
+                    the same result layout: final answer at the top, explanations and steps
+                    underneath.
+                </p>
+                <ul class="docs-list">
+                    <li><strong>Solve</strong>: solves equations in one variable, for example `2*x + 5 = 15`.</li>
+                    <li><strong>Derivative</strong>: computes first or higher‑order derivatives with respect to a chosen variable.</li>
+                    <li><strong>Integral</strong>: computes indefinite or definite integrals, including bounds.</li>
+                    <li><strong>Limit</strong>: evaluates limits at points or at infinity, with support for left/right/both‑sided limits.</li>
+                    <li><strong>Matrix</strong>: supports determinant, inverse, transpose, and RREF using an interactive matrix grid.</li>
+                    <li><strong>Graph</strong>: generates 2D graphs over a chosen domain using the same expression syntax as Solve.</li>
+                    <li><strong>Text</strong>: interprets natural language word problems using Cerebras and produces a step‑by‑step solution.</li>
+                </ul>
+            </div>
+
+            <div id="input-syntax" class="docs-section">
+                <h2 class="docs-section-title">Input syntax</h2>
+                <p class="docs-section-text">
+                    All tabs share a consistent expression syntax based on SymPy conventions.
+                    You do not need LaTeX; plain text is preferred.
+                </p>
+                <ul class="docs-list">
+                    <li>Use `^` or `**` for powers: `x^2`, `x**3`.</li>
+                    <li>Use `sin(x)`, `cos(x)`, `tan(x)`, `exp(x)`, `log(x)` for standard functions.</li>
+                    <li>Use `/` for division and parentheses to control grouping: `(1 + 1/x)^x`.</li>
+                    <li>Enter matrices as nested lists: `[[1,2],[3,4]]` or use the Matrix tab grid UI.</li>
+                    <li>For limits approaching infinity, type `infinity` or `-infinity` in the Approaches field.</li>
+                </ul>
+            </div>
+
+            <div id="text-tab" class="docs-section">
+                <h2 class="docs-section-title">Text tab and AI explanations</h2>
+                <p class="docs-section-text">
+                    The Text tab is your universal fallback and word‑problem solver. It uses
+                    the Cerebras Cloud SDK to interpret natural language, but all final
+                    answers are still checked against the math engine whenever possible.
+                </p>
+                <ul class="docs-list">
+                    <li>Write a problem in plain language, for example “A train travels 120 km in 2 hours. What is its average speed?”</li>
+                    <li>The backend asks Cerebras to return a JSON‑only solution with numbered steps and LaTeX formulas.</li>
+                    <li>The UI renders those steps linearly, ending with a clear “Final step” containing the final answer.</li>
+                    <li>When other tabs encounter parse or runtime errors, they return a structured fallback response and the frontend automatically redirects to the Text tab with your original input preserved.</li>
+                </ul>
+            </div>
+
+            <div id="graphs-pdf" class="docs-section">
+                <h2 class="docs-section-title">Graphs and PDF exports</h2>
+                <p class="docs-section-text">
+                    Graphs and PDFs help you move from scratchpad to presentation‑ready
+                    artifacts without leaving the site.
+                </p>
+                <ul class="docs-list">
+                    <li>The Graph tab calls a dedicated `/api/graph/` endpoint that validates input and returns a base64 PNG only on success.</li>
+                    <li>Invalid graph expressions trigger a fallback to the Text tab instead of embedding error text inside a graph.</li>
+                    <li>The PDF export button on the main page uses the latest successful calculation and renders it with a clean layout including problem, result, and steps.</li>
+                    <li>History and multi‑calculation exports use the same PDF engine to generate combined reports.</li>
+                </ul>
+            </div>
+
+            <div id="error-fallbacks" class="docs-section">
+                <h2 class="docs-section-title">Error handling and fallbacks</h2>
+                <p class="docs-section-text">
+                    TfeaterMathLab is designed to fail soft and stay interactive. Instead of
+                    surfacing stack traces, the backend emits predictable JSON that the
+                    frontend can react to.
+                </p>
+                <ul class="docs-list">
+                    <li>Syntax errors, unsupported operations, or SymPy evaluation issues are caught by the views layer.</li>
+                    <li>For non‑Text tabs, errors are returned as:
+                        <pre style="background: var(--background); padding: 8px; border-radius: 4px; font-size: 12px;">
+{ "status": "fallback",
+  "target_tab": "text",
+  "original_input": "...",
+  "error_type": "...",
+  "error_message": "..." }</pre>
+                    </li>
+                    <li>The frontend detects this schema and automatically redirects you to the Text tab with the original input intact.</li>
+                    <li>The Text tab itself never emits fallback responses, which prevents infinite redirect loops.</li>
+                </ul>
+            </div>
+
+            <div id="developer-docs" class="docs-section">
+                <h2 class="docs-section-title">Developer documentation index</h2>
+                <p class="docs-section-text">
+                    Full, text‑based documentation for individual modules is shipped with the
+                    project under <code>solver/static/docs/</code>. You can open them directly
+                    in a browser via the links below or in your editor.
+                </p>
+                <ul class="docs-link-list">
+                    <li><a href="{% static 'docs/README-math-engine.md' %}" target="_blank">Math engine (`math_engine.py`)</a></li>
+                    <li><a href="{% static 'docs/README-graph-generator.md' %}" target="_blank">Graph generator (`graph_generator.py`)</a></li>
+                    <li><a href="{% static 'docs/README-natural-language.md' %}" target="_blank">Natural language parsing (`natural_parser.py`, `advanced_math_parser.py`)</a></li>
+                    <li><a href="{% static 'docs/README-services-ai.md' %}" target="_blank">AI services (`ai_explainer.py`, `cerebras_text_solver.py`)</a></li>
+                    <li><a href="{% static 'docs/README-pdf-export.md' %}" target="_blank">PDF export (`pdf_export.py`, `pdf_generator_reportlab.py`)</a></li>
+                    <li><a href="{% static 'docs/README-views-routing.md' %}" target="_blank">Views and routing (`views.py`, `urls.py`)</a></li>
+                    <li><a href="{% static 'docs/README-models-history.md' %}" target="_blank">Models and history (`models.py`)</a></li>
+                    <li><a href="{% static 'docs/README-frontend-ui.md' %}" target="_blank">Frontend UI (`templates/solver/*.html`)</a></li>
+                    <li><a href="{% static '../README.md' %}" target="_blank">Project README</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>For more details, open any of the linked markdown files or explore the source code. Every module is documented and covered by tests.</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.hasAttribute('data-theme')) {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</body>
+</html>

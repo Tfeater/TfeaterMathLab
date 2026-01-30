@@ -1,0 +1,16 @@
+@echo off
+:: Copy this file to set_env_local.bat and edit the values.
+:: set_env_local.bat is optional; run.bat will use it if present.
+
+:: Required for production; optional for local dev (defaults exist).
+:: set DJANGO_SECRET_KEY=your-secret-key-here
+
+:: Optional: set to False in production.
+:: set DJANGO_DEBUG=True
+
+:: Comma-separated hosts (e.g. localhost,127.0.0.1,your-machine-name).
+:: set DJANGO_ALLOWED_HOSTS=localhost,127.0.0.1
+
+:: Cerebras Cloud API key - required for AI features (Text tab, AI explanations).
+:: Get one at https://cloud.cerebras.ai/
+set CEREBRAS_API_KEY=your_cerebras_api_key_here

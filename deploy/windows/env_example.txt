@@ -1,0 +1,7 @@
+# TfeaterMathLab - Environment variables (reference)
+# Use these in set_env_local.bat or set them in System Environment Variables.
+
+DJANGO_SECRET_KEY     = (required in production) Secret key for Django; keep private.
+DJANGO_DEBUG          = True | False. Use False in production.
+DJANGO_ALLOWED_HOSTS  = Comma-separated list, e.g. localhost,127.0.0.1
+CEREBRAS_API_KEY      = (optional) Cerebras Cloud API key for AI features (Text tab, explanations).

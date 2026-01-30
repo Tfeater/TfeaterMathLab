@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - TfeaterMathLab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4a4a4a;
+            --primary-hover: #3a3a3a;
+            --background: #fafafa;
+            --surface: #ffffff;
+            --border: #e0e0e0;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6a6a6a;
+            --text-muted: #9a9a9a;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        [data-theme="dark"] {
+            --primary: #f0f0f0;
+            --primary-hover: #ffffff;
+            --background: #1a1a1a;
+            --surface: #2a2a2a;
+            --border: #404040;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--background);
+            color: var(--text-primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            background: var(--border);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 20px 40px;
+        }
+
+        .about-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .about-header-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .about-header-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--text-secondary);
+            background: var(--background);
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .section {
+            margin-top: 24px;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .section-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .feature-card {
+            background: var(--background);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            padding: 16px 18px;
+        }
+
+        .feature-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .feature-items {
+            list-style: none;
+            padding-left: 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .feature-items li {
+            margin-bottom: 4px;
+        }
+
+        .stack-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .stack-tag {
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: var(--background);
+        }
+
+        .timeline {
+            margin-top: 12px;
+            border-left: 2px solid var(--border);
+            padding-left: 14px;
+        }
+
+        .timeline-item {
+            margin-bottom: 12px;
+        }
+
+        .timeline-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .timeline-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px 20px 32px;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border);
+            margin-top: 24px;
+        }
+
+        @media (max-width: 640px) {
+            .about-card {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">TfeaterMathLab</a>
+            <nav class="nav-menu">
+                <a href="/" class="nav-item">Solve</a>
+                <a href="/history/" class="nav-item">History</a>
+                <a href="/profile/" class="nav-item">Profile</a>
+                <a href="/about/" class="nav-item active">About</a>
+            </nav>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">🌙</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="about-card">
+            <div class="about-header-title">About TfeaterMathLab</div>
+            <p class="about-header-subtitle">
+                A modern, math lab that blends a rigorous
+                SymPy engine with AI‑powered explanations to help you actually
+                understand the steps — not just copy the answer.
+            </p>
+
+            <div>
+                <span class="pill">Deterministic SymPy core</span>
+                <span class="pill">AI explanations via Cerebras</span>
+                <span class="pill">Beautiful LaTeX rendering</span>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">What this site is built for</h2>
+                <p class="section-text">
+                    TfeaterMathLab is designed for students, engineers, and self‑learners who
+                    want a fast math scratchpad that behaves like a serious CAS and explains
+                    its reasoning. Every solve request goes through a deterministic SymPy‑based
+                    engine first; AI is used only to narrate the story behind the solution.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Key experiences</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-title">Algebra workspace</div>
+                        <ul class="feature-items">
+                            <li>Linear & quadratic equation solving</li>
+                            <li>Simplify, factor, and expand expressions</li>
+                            <li>Exact symbolic forms with fractions</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">Calculus playground</div>
+                        <ul class="feature-items">
+                            <li>First & higher‑order derivatives</li>
+                            <li>Indefinite & definite integrals</li>
+                            <li>Limits including one‑sided and at infinity</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">Linear algebra lab</div>
+                        <ul class="feature-items">
+                            <li>Determinant, inverse, transpose</li>
+                            <li>Row‑reduced echelon form (RREF)</li>
+                            <li>Matrix inputs tuned for keyboard‑only entry</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">Graphing & visuals</div>
+                        <ul class="feature-items">
+                            <li>2D plots built with Matplotlib</li>
+                            <li>Clean, high‑contrast graphs for reports</li>
+                            <li>Safe expression parsing — no eval in sight</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">Text tab (AI‑powered)</div>
+                        <ul class="feature-items">
+                            <li>Turn word problems into math with Cerebras</li>
+                            <li>Step‑by‑step reasoning, Symbolab‑style</li>
+                            <li>Final answers always cross‑checked by SymPy</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-title">History & exports</div>
+                        <ul class="feature-items">
+                            <li>Recent solves with LaTeX rendering</li>
+                            <li>Download polished PDF reports</li>
+                            <li>Use history items as reusable templates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Under the hood</h2>
+                <p class="section-text">
+                    The application is intentionally simple to deploy but serious under the hood:
+                    every layer is designed to be testable and predictable.
+                </p>
+                <div class="stack-tags">
+                    <span class="stack-tag"><strong>Backend</strong>: Django 4 + SymPy</span>
+                    <span class="stack-tag"><strong>AI</strong>: Cerebras Cloud SDK (Llama‑3.3‑70B)</span>
+                    <span class="stack-tag"><strong>Rendering</strong>: MathJax for LaTeX</span>
+                    <span class="stack-tag"><strong>Graphs</strong>: Matplotlib (Agg backend)</span>
+                    <span class="stack-tag"><strong>PDF</strong>: ReportLab‑based generator</span>
+                    <span class="stack-tag"><strong>Tests</strong>: pytest + pytest‑django</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">How a problem flows through the system</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-label">1 · Input</div>
+                        <div class="timeline-title">You type math, not JSON</div>
+                        <div class="timeline-text">
+                            Expressions are accepted in a human‑friendly syntax (`x^2`, `sin(x)/x`,
+                            `[[1,2],[3,4]]`) and normalized by custom parsers before they ever touch SymPy.
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label">2 · Deterministic solve</div>
+                        <div class="timeline-title">SymPy does the heavy lifting</div>
+                        <div class="timeline-text">
+                            A dedicated math engine layer evaluates the problem, produces canonical LaTeX,
+                            and records intermediate steps and history entries.
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label">3 · AI narration</div>
+                        <div class="timeline-title">Cerebras turns math into a story</div>
+                        <div class="timeline-text">
+                            For supported operations, Cerebras is given the <em>already‑verified</em> result and
+                            is asked only to explain it. The explanation is accepted only if the final answer
+                            is proven equivalent to the engine’s result.
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-label">4 · Fallbacks & safety</div>
+                        <div class="timeline-title">No dead‑ends, no crashes</div>
+                        <div class="timeline-text">
+                            Parsing errors, SymPy issues, or unsupported inputs trigger a smooth redirect to
+                            the Text tab, which can interpret the original input as a word problem and still
+                            produce a guided solution.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Why this matters</h2>
+                <p class="section-text">
+                    Modern math tools should feel like a tutor sitting next to you — not a black box.
+                    TfeaterMathLab is intentionally opinionated: math first, AI second, explanations
+                    always. Use it to check homework, explore new topics, or generate clean reports
+                    that you would be comfortable handing in.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>TfeaterMathLab — A small, focused lab for serious math learners.</p>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.hasAttribute('data-theme')) {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</body>
+</html>
